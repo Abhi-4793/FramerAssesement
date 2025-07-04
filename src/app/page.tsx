@@ -4,6 +4,7 @@ import VerticalScrollIndicator from "./components/verticalbar";
 import HeroSection from "./components/paidout";
 import Card from "./components/Card";
 import VerticalProgress from "./components/verticalbar";
+import QRScrollSection from "./components/Qrsection";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Register />
       <Card />
       <HeroSection />
+      <QRScrollSection />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { AnimatedBorderWrapper } from "./AnimatedBorder";
+import FancyWrapper from "./CardWrapper";
 
 const features = [
   "Who It’s For",
@@ -84,70 +85,65 @@ const pricingData = [
 
 export default function PricingTable() {
   return (
-    <div className="max-w-9xl mx-auto mt-40  items-center justify-center overflow-x-hidden h-screen">
-      <div className="grid grid-cols-[1fr_repeat(3,minmax(150px,1fr))]  text-sm text-white">
-        <div className="flex flex-col w-50 ml-50 space-y-5 pt-[28%] py-0 pr-4 text-left opacity-60 font-light">
-          {features.map((f, i) => (
-            <div key={i}>
-              {f}
-              <Separator className="my-1  w-full bg-gradient-to-r from-transparent via-white/40 to-transparent border-0" />
+    <div className="max-w-screen-xl mx-auto mt-40 overflow-x-hidden px-4 overflow-hidden">
+      <div className="flex text-sm text-white overflow-hidden">
+        {/* Feature Column */}
+        <div className="flex flex-col space-y-5 mt-30 text-left opacity-60 min-w-[200px] pr-6">
+          {features.map((feature, idx) => (
+            <div key={idx}>
+              {feature}
+              <Separator className="my-1 w-full bg-gradient-to-r from-transparent via-white/40 to-transparent border-0" />
             </div>
           ))}
         </div>
 
-        {pricingData.map((plan, idx) => {
-          const card = (
-            <Card
-              key={idx}
-              className={`rounded-2xl items-center w-[20vw] justify-center text-center shadow-xl ${
-                idx === 0 || idx === 2
-                  ? "bg-gradient-to-tl from-[#030105] to-[#0a0013]"
-                  : `bg-[linear-gradient(154deg,#000,#0d020d_129%)]`
-              }`}
-              // style={
-              //   idx === 0 || idx === 2
-              //     ? {}
-              //     : {
-              //         WebkitMaskImage:
-              //           "linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.25) 100%)",
-              //         maskImage:
-              //           "linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25))",
-              //       }
-              // }
-            >
-              <CardContent className="p-3  space-y-5">
-                <h3 className="text-xl text-white font-semibold">
-                  {plan.title}
-                </h3>
-                <p className="text-sm text-white opacity-70">
-                  {plan.description}
-                </p>
-                <Separator className="my-1  w-full bg-gradient-to-r from-transparent via-white/40 to-transparent border-0" />
-                <div className="space-y-6 text-white pt-4 text-center text-sm">
-                  {plan.values.map((val, i) => (
-                    <div key={i}>
-                      {val}
-                      <Separator className="my-1  w-full bg-gradient-to-r from-transparent via-white/40 to-transparent border-0" />
-                    </div>
-                  ))}
-                </div>
-                <Button
-                  variant={"outline"}
-                  className="mt-6 bg-gradient-to-b from-[#9f8bcf] to-[#6242a5]"
-                >
-                  Start Trading
-                </Button>
-              </CardContent>
-            </Card>
-          );
+        {/* Plan Columns */}
+        <div className="flex flex-1 space-x-3 items-center overflow-hidden">
+          {pricingData.map((plan, idx) => {
+            const card = (
+              <Card
+                key={idx}
+                className={`flex flex-col justify-between h-full flex-1 rounded-2xl border border-[#15001a] shadow-xl text-center ${
+                  idx === 0 || idx === 2
+                    ? "bg-gradient-to-tl from-[#030105] to-[#15001a]"
+                    : "bg-[linear-gradient(154deg,#000,#0d020d_129%)]"
+                }`}
+              >
+                <CardContent className="p-6 flex flex-col justify-between items-center h-full">
+                  <h3 className="text-xl font-semibold mb-2">{plan.title}</h3>
+                  <p className="text-sm opacity-70 w-64 mb-4">
+                    {plan.description}
+                  </p>
+                  <Separator className="mb-4 w-full bg-gradient-to-r from-transparent via-white/40 to-transparent border-0" />
+                  <div className="flex flex-col space-y-6 w-40  justify-center text-center text-sm">
+                    {plan.values.map((val, i) => (
+                      <div key={i}>
+                        {val}
+                        <Separator className="my-1 w-full bg-gradient-to-r from-transparent via-white/40 to-transparent border-0" />
+                      </div>
+                    ))}
+                  </div>
+                  <Button
+                    variant={"outline"}
+                    className="mt-6 text-white w-30 h-10 items-center text-center bg-gradient-to-b  from-[#9f8bcf] to-[#6242a5]"
+                  >
+                    Start Trading
+                  </Button>
+                </CardContent>
+              </Card>
+            );
 
-          // Wrap the 2nd card (idx === 1)
-          return idx === 1 ? (
-            <AnimatedBorderWrapper key={idx}>{card}</AnimatedBorderWrapper>
-          ) : (
-            card
-          );
-        })}
+            return idx === 1 ? (
+              <AnimatedBorderWrapper key={idx} className="flex-1 h-fit z-10">
+                {card}
+              </AnimatedBorderWrapper>
+            ) : (
+              <div key={idx} className="flex-1 h-full z-10">
+                {card}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
