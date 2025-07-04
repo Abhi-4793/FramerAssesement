@@ -84,7 +84,9 @@ export default function VerticalProgress() {
             {steps.map((step, index) => (
               <div
                 key={index}
-                ref={(el) => (stepRefs.current[index] = el)}
+                ref={(el) => {
+                  stepRefs.current[index] = el;
+                }}
                 className={cn(
                   "text-white/30 font-bold text-xl transition-opacity duration-500",
                   {

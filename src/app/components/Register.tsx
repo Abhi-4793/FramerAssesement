@@ -113,7 +113,9 @@ export default function VerticalProgress() {
             {steps.map((step, index) => (
               <div
                 key={index}
-                ref={(el) => (stepRefs.current[index] = el)}
+                ref={(el) => {
+                  stepRefs.current[index] = el;
+                }}
                 className="min-h-[100vh] flex items-center justify-center"
               >
                 <div className="text-4xl font-semibold text-white">
