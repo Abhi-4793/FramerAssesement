@@ -98,7 +98,7 @@ export default function PricingTable() {
         </div>
 
         {/* Plan Columns */}
-        <div className="flex flex-1 space-x-3 items-center overflow-hidden">
+        <div className="flex flex-1 space-x-1 items-center overflow-hidden">
           {pricingData.map((plan, idx) => {
             const card = (
               <Card

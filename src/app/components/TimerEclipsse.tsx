@@ -4,12 +4,12 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatedBorderWrapper } from "./AnimatedBorder";
 import { useInView } from "react-intersection-observer";
-export default function HeroSection() {
+export default function TimerEclipsseSection() {
   const [count, setCount] = useState<number>(281);
   const [startTime, setStartTime] = useState(Date.now());
   const { ref, inView } = useInView({
     threshold: 0.3, //30% visible
-    triggerOnce: false, // Change to true if you want it to fade in only once
+    triggerOnce: false,
   });
   useEffect(() => {
     const interval = setInterval(() => {

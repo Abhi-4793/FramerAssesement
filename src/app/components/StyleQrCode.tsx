@@ -47,7 +47,7 @@ export default function QRCodeGlow({ src }: { src: string }) {
   };
 
   return (
-    <div className="flex justify-center z-10  items-center">
+    <div className="flex justify-center z-10 mt-15  items-center">
       <div
         ref={wrapperRef}
         onMouseMove={handleMouseMove}

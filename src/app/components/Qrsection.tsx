@@ -26,7 +26,7 @@ export default function HeroQRSection() {
 
   return (
     <section
-      className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden text-white"
+      className="relative h-screen flex flex-col space-y-6 items-center justify-center text-center overflow-hidden text-white"
       style={{
         background: `radial-gradient(16% 28.999999999999996% at 50% 50%,#574c70,#00000069)`,
         // backgroundPositionY: `${offsetY * 0.5}px`,
@@ -52,12 +52,12 @@ export default function HeroQRSection() {
         <span className="text-pink-500">Anywhere</span>
       </h1>
       {/* App store badges (placeholder or use real image) */}
-      <div className="z-10 mt-6 flex flex-col gap-4">
+      <div className="z-10 mt-20 flex flex-col gap-4">
         <Image
           src="/images/store.png"
           alt="Store"
           className="border-none"
-          width={140}
+          width={100}
           height={45}
         />
       </div>
