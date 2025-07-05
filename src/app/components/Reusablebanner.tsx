@@ -21,7 +21,7 @@ export default function Reusablebanner({
       <Button
         variant={"outline"}
         size={"lg"}
-        className="text-[14px] text-[#9F8BCF] font-semibold font-['Manrope'] w-30 h-8"
+        className="bg-[linear-gradient(91deg,_rgb(200,186,232)_0%,_rgb(177,149,240)_98.2475%)] bg-clip-text text-transparent  font-semibold font-['Manrope'] w-30 h-8"
       >
         <span className="">{buttonText}</span>
       </Button>

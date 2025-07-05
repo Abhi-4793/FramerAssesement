@@ -9,7 +9,7 @@ export default function HeroQRSection() {
   //   const [offsetY, setOffsetY] = useState(0);
   const { ref, inView, entry } = useInView({
     triggerOnce: false, // animate both in and out
-    threshold: 0.2, // adjust as needed
+    threshold: 0.5, // adjust as needed
   });
 
   // 0 (not visible) => 100vw (off-screen right)
@@ -34,7 +34,10 @@ export default function HeroQRSection() {
       }}
     >
       <QRCodeTilt src="/images/qr.png" />
-
+      {/* sticky top-20 z-10 text-4xl md:text-9xl font-extrabold tracking-tight
+      transition-transform duration-1000 ease-in-out will-change-transform
+      mx-auto text-center w-fit $
+      {inView ? "translate-x-0 opacity-100" : "translate-x-70 opacity-40"} */}
       {/* Text */}
       <h1
         ref={ref}
@@ -43,7 +46,7 @@ export default function HeroQRSection() {
         z-0 text-4xl md:text-8xl font-extrabold tracking-tight
         transition-all duration-700
         ease-[cubic-bezier(0.4,0,0.2,1)]
-        ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"}
+      ${inView ? "-translate-x-1/2 opacity-100" : "translate-x-1/2 opacity-100"}
       `}
         style={{ willChange: "transform, opacity" }}
       >

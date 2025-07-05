@@ -30,14 +30,14 @@ export default function TimerEclipsseSection() {
       {/* 💡 Overlay Content */}
       <div className="absolute inset-0 z-30 flex flex-col gap-1 max-w-4xl mb-10 items-center justify-center mx-auto">
         <Button
-          variant={"default"}
+          variant={"outline"}
           size={"lg"}
-          className="text-pink-200 rounded-full text-[20px] bg-black border-2 hover:bg-black w-45 h-12"
+          className="bg-[linear-gradient(91deg,_rgb(200,186,232)_0%,_rgb(177,149,240)_98.2475%)] bg-clip-text text-transparent  font-semibold font-['Manrope'] w-30 h-8"
         >
-          Payouts
+          <span className="">Payouts</span>
         </Button>
         <div
-          className={` mt-20 transition-all duration-1000 eease-[cubic-bezier(0.25, 1, 0.5, 1)] transform ${
+          className={` mt-10 transition-all duration-1000 eease-[cubic-bezier(0.25, 1, 0.5, 1)] transform ${
             inView ? "opacity-[1]" : "opacity-[0.5] "
           }`}
           ref={ref}

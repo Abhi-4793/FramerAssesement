@@ -52,20 +52,6 @@ export default function VerticalProgress() {
       ref={sectionObserverRef}
       className="relative min-h-[400vh] w-full overflow-hidden"
     >
-      <div className="absolute inset-0 -z-10">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/your-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-red-500/30" />{" "}
-        {/* optional overlay */}
-      </div>
-
       {/* Progress UI */}
       <div
         ref={sectionRef}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
 import Reusablebanner from "./Reusablebanner";
@@ -11,13 +11,13 @@ import cn from "classnames";
 export default function VerticalProgress() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
-  const stepRefs = useRef<HTMLDivElement[]>([]);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [progress, setProgress] = useState(0);
   const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
 
   const { ref: sectionObserverRef } = useInView({
-    threshold: 0.1,
+    threshold: 0.2,
   });
   const steps = [
     { id: "01", stepnum: "Step 1", title: "Register Your Account" },
@@ -26,22 +26,35 @@ export default function VerticalProgress() {
     { id: "04", stepnum: "Step 4", title: "Start Trading&Earn Points" },
   ];
 
-  useEffect(() => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-      const sectionTop = sectionRef.current.offsetTop;
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const scrollY = window.scrollY + window.innerHeight / 2;
 
-      // Calculate progress only within this section
-      const rawProgress = (scrollY - sectionTop) / sectionHeight;
+      const section = sectionRef.current;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const start = windowHeight;
+      const end = rect.height + windowHeight;
+
+      const scrollY = start - rect.top;
+      const rawProgress = scrollY / end;
+
       const clampedProgress = Math.min(Math.max(rawProgress, 0), 1);
+
       setProgress(clampedProgress);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run initially
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -67,7 +80,7 @@ export default function VerticalProgress() {
   return (
     <div
       ref={sectionObserverRef}
-      className="relative min-h-screen bg-black text-white overflow-hidden"
+      className="relative min-h-screen bg-black text-white "
     >
       {/* Optional background image overlay */}
       <img
@@ -85,35 +98,63 @@ export default function VerticalProgress() {
       {/* Main section with vertical progress */}
       <div
         ref={sectionRef}
-        className="relative flex flex-col items-center max-w-7xl mx-auto mt-10 py-24 z-10"
+        className="relative flex flex-col items-center max-w-7xl mx-auto mt-15 py-24 z-10"
       >
         {/* Vertical Progress Bar */}
-        <div className="absolute h-[calc(200vh-130px)] w-1 bg-gray-700 left-1/2 transform -translate-x-1/2 overflow-hidden rounded">
+        <div className="absolute h-[calc(200vh-130px)] w-1 bg-gray-700 left-1/2 transform -translate-x-1/2  rounded">
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full z-20 pointer-events-none"></div>
+
           <div
             ref={progressRef}
-            style={{ height: `${progress * 90}%` }}
-            className="absolute bottom-0 w-1 bg-white transition-all duration-300"
+            style={{ height: `${progress * 100}%` }}
+            className="absolute bottom-0 origin-top w-1 bg-white transition-[height] duration-500 ease-in-out"
           />
         </div>
+        {steps.map((step, index) => (
+          <div
+            key={index}
+            className="absolute z-50 ml-18 mt-10"
+            style={{
+              top: `${index * 430 + 60}px`,
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            {/* <div className="relative z-50"> */}
+            {/* Outer ring to hide the line with black bg */}
+            {/* <div className="absolute inset-0 rounded-full bg-black w-16 h-16 -z-10" /> */}
+
+            {/* Step number */}
+            <div className="backdrop-blur-sm bg-black/30 text-white w-14 h-14  py-10 px-10 rounded-full flex items-center justify-center text-3xl font-bold z-50">
+              {step.id}
+            </div>
+          </div>
+        ))}
 
         {/* Steps */}
         <div className="relative w-full">
           {steps.map((step, index) => (
             <div
               key={index}
-              data-index={index}
               ref={(el) => {
-                stepRefs.current[index] = el!;
+                stepRefs.current[index] = el;
               }}
+              data-index={index}
               className={cn(
-                "flex items-center justify-between w-full mb-80 relative transition-opacity duration-700",
+                "flex items-center z-20 justify-between w-full mb-80 relative transition-opacity duration-700",
                 index % 2 === 0 ? "flex-row-reverse" : "flex-row",
                 visibleSteps.includes(index) ? "opacity-100" : "opacity-0"
               )}
             >
-              <div className="w-1/2 px-4">
-                <div className="text-white text-2xl flex flex-col font-semibold">
-                  <span>{step.stepnum}</span>
+              <div
+                className={cn(
+                  "w-1/2",
+                  index % 2 === 0 ? "pl-15 pt-5" : "pr-20  text-right"
+                )}
+              >
+                <div className="text-white text-2xl flex flex-col  font-semibold">
+                  <span className="font-extralight text-gray-700">
+                    {step.stepnum}
+                  </span>
                   <span>{step.title}</span>
                 </div>
               </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useRef } from "react";
 
 export default function QRCodeGlow({ src }: { src: string }) {
@@ -56,8 +57,10 @@ export default function QRCodeGlow({ src }: { src: string }) {
         className="relative w-80 h-80 rounded-xl bg-gray-800/80  p-4 transition-transform duration-200 ease-out"
       >
         {/* QR Image */}
-        <img
+        <Image
           src={src}
+          width={100}
+          height={100}
           alt="QR Code"
           className="relative z-10 w-full h-full  bg-cover rounded-xl bg-white"
         />
