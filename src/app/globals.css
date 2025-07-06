@@ -137,3 +137,52 @@
 .animate-border-spin {
   animation: borderSpin 8s linear infinite;
 }
+
+@keyframes fadeInShadow {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.animate-fadeInShadow {
+  animation: fadeInShadow 1s ease-out forwards;
+}
+
+@keyframes depthFade {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.2) rotateX(35deg) translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1) rotateX(0deg) translateY(0);
+  }
+}
+
+.animate-depthFade {
+  animation: depthFade 1.4s ease-out forwards;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.mask-gradient {
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.24) -13%, rgba(0, 0, 0, 0.5) 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.24) -13%, rgba(0, 0, 0, 0.5) 100%);
+}

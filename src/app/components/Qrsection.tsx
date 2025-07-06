@@ -9,7 +9,7 @@ export default function HeroQRSection() {
   //   const [offsetY, setOffsetY] = useState(0);
   const { ref, inView, entry } = useInView({
     triggerOnce: false, // animate both in and out
-    threshold: 0.5, // adjust as needed
+    threshold: 0.4, // adjust as needed
   });
 
   // 0 (not visible) => 100vw (off-screen right)
@@ -41,19 +41,25 @@ export default function HeroQRSection() {
       {/* Text */}
       <h1
         ref={ref}
-        className={`
-            absolute
-        z-0 text-4xl md:text-8xl font-extrabold tracking-tight
-        transition-all duration-700
-        ease-[cubic-bezier(0.4,0,0.2,1)]
-      ${inView ? "-translate-x-1/2 opacity-100" : "translate-x-1/2 opacity-100"}
-      `}
-        style={{ willChange: "transform, opacity" }}
+        className={clsx(
+          "absolute z-0 text-4xl md:text-8xl font-extrabold tracking-tight text-center whitespace-nowrap transition-all duration-1000 ease-[cubic-bezier(0.4,0,0.2,1)]",
+          {
+            "translate-x-[20vw] opacity-100": inView,
+            "-translate-x-[40vw] opacity-60": !inView,
+          }
+        )}
+        style={{
+          willChange: "transform, opacity, left",
+        }}
       >
-        Trade An
-        <span className="text-white/60">ytime</span>,{" "}
-        <span className="text-pink-500">Anywhere</span>
+        <span className="inline">Trade </span>
+        <span className="inline text-white/60">Anytime</span>
+        <span className="inline">, </span>
+        <span className="inline bg-[#a35ca2] bg-clip-text text-transparent">
+          Anywhere
+        </span>
       </h1>
+
       {/* App store badges (placeholder or use real image) */}
       <div className="z-10 mt-20 flex flex-col gap-4">
         <Image

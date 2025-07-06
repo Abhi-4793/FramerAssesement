@@ -101,7 +101,7 @@ export default function VerticalProgress() {
         className="relative flex flex-col items-center max-w-7xl mx-auto mt-15 py-24 z-10"
       >
         {/* Vertical Progress Bar */}
-        <div className="absolute h-[calc(200vh-130px)] w-1 bg-gray-700 left-1/2 transform -translate-x-1/2  rounded">
+        <div className="absolute h-[calc(200vh-100px)] w-1 bg-gray-700 left-1/2 transform -translate-x-1/2  rounded">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full z-20 pointer-events-none"></div>
 
           <div
@@ -113,7 +113,10 @@ export default function VerticalProgress() {
         {steps.map((step, index) => (
           <div
             key={index}
-            className="absolute z-50 ml-18 mt-10"
+            className={cn(
+              "absolute z-50 ml-18 mt-10 transition-opacity duration-700",
+              visibleSteps.includes(index) ? "opacity-100" : "opacity-0"
+            )}
             style={{
               top: `${index * 430 + 60}px`,
               transform: "translate(-50%, -50%)",
@@ -166,7 +169,7 @@ export default function VerticalProgress() {
           <Button
             variant="default"
             size="sm"
-            className="group flex bg-[#6242a5] text-white font-bold w-45 h-12"
+            className="group flex bg-[#6242a5] text-white font-bold  w-45 h-12"
           >
             Open Free Account
             <ArrowUpRight className="w-4 h-4 group-hover:inline-block transition duration-300" />

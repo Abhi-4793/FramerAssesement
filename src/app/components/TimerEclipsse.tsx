@@ -4,17 +4,25 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatedBorderWrapper } from "./AnimatedBorder";
 import { useInView } from "react-intersection-observer";
+
 export default function TimerEclipsseSection() {
   const [count, setCount] = useState<number>(281);
   const [startTime, setStartTime] = useState(Date.now());
+  const [hasAnimated, setHasAnimated] = useState(false);
   const { ref, inView } = useInView({
-    threshold: 0.3, //30% visible
+    threshold: 0.3,
     triggerOnce: false,
   });
+
+  useEffect(() => {
+    if (inView && !hasAnimated) {
+      setHasAnimated(true);
+    }
+  }, [inView, hasAnimated]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       const elapsed = (Date.now() - startTime) / 1000;
-
       if (elapsed >= 8) {
         setStartTime(Date.now());
         setCount(281);
@@ -25,26 +33,35 @@ export default function TimerEclipsseSection() {
 
     return () => clearInterval(interval);
   }, [startTime]);
+
   return (
-    <section className="relative min-h-screen h-full  flex items-center justify-center overflow-hidden text-white text-center">
-      {/* 💡 Overlay Content */}
-      <div className="absolute inset-0 z-30 flex flex-col gap-1 max-w-4xl mb-10 items-center justify-center mx-auto">
+    <section className="relative min-h-screen h-full flex items-center justify-center overflow-hidden text-white text-center">
+      <div className="absolute inset-0 z-30 flex flex-col gap-4 max-w-4xl mb-10 items-center justify-center mx-auto">
         <Button
           variant={"outline"}
           size={"lg"}
-          className="bg-[linear-gradient(91deg,_rgb(200,186,232)_0%,_rgb(177,149,240)_98.2475%)] bg-clip-text text-transparent  font-semibold font-['Manrope'] w-30 h-8"
+          className="bg-[linear-gradient(91deg,_rgb(200,186,232)_0%,_rgb(177,149,240)_98.2475%)] bg-clip-text text-transparent font-semibold font-['Manrope'] w-30 h-8"
         >
-          <span className="">Payouts</span>
+          <span>Payouts</span>
         </Button>
+
         <div
-          className={` mt-10 transition-all duration-1000 eease-[cubic-bezier(0.25, 1, 0.5, 1)] transform ${
-            inView ? "opacity-[1]" : "opacity-[0.5] "
-          }`}
           ref={ref}
+          className={`mt-10 transition-opacity duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+            hasAnimated ? "animate-fadeInShadow" : "opacity-50"
+          }`}
         >
-          <h1 className="text-3xl md:text-5xl font-bold">
-            We’ve Paid Out Over <br />
-            <span className="text-white/90">$1M to Traders</span>
+          <h1
+            className={`text-3xl md:text-5xl font-bold perspective-1200 transform-style-3d`}
+          >
+            <span
+              className={`${
+                hasAnimated ? "inline-block animate-depthFade" : "opacity-0"
+              }`}
+            >
+              We’ve Paid Out Over <br />
+              <span className="text-white/90">$1M to Traders</span>
+            </span>
           </h1>
 
           <p className="text-white/80 mt-2">
@@ -56,12 +73,12 @@ export default function TimerEclipsseSection() {
           $999,{count}
           <span className="text-purple-400 text-[200px] text-6xl">+</span>
         </h2>
+
         <AnimatedBorderWrapper className="w-fit">
-          {" "}
           <Button
             variant="default"
             size={"lg"}
-            className="group flex bg-black hover:bg-gray-900   text-white font-bold w-40 h-12"
+            className="group flex bg-black hover:bg-gray-900 text-white font-bold w-45 px-20 py-5 h-12"
           >
             Are you next ?
             <ArrowUpRight className="w-4 h-4 group-hover:hidden transition duration-300" />
@@ -69,7 +86,8 @@ export default function TimerEclipsseSection() {
           </Button>
         </AnimatedBorderWrapper>
       </div>
-      {/* //Video Bacground */}
+
+      {/* Video Background */}
       <div className="relative w-full h-[140vh] top-[45%]">
         <div className="absolute inset-0 bg-[rgba(184,7,7,0)] mix-blend-screen [clip-path:inset(0_0_50%_0)] opacity-60 z-10 pointer-events-none" />
         <video
