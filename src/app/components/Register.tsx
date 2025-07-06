@@ -101,7 +101,7 @@ export default function VerticalProgress() {
         className="relative flex flex-col items-center max-w-7xl mx-auto mt-15 py-24 z-10"
       >
         {/* Vertical Progress Bar */}
-        <div className="absolute h-[calc(200vh-100px)] w-1 bg-gray-700 left-1/2 transform -translate-x-1/2  rounded">
+        <div className="absolute h-[calc(100%-250px)] w-1 bg-gray-700 left-1/2 transform -translate-x-1/2  rounded scrollbar">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full z-20 pointer-events-none"></div>
 
           <div

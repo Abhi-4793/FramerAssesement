@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import QRCodeTilt from "./StyleQrCode";
+// import QRCodeTilt from "./StyleQrCode";
 import { useInView } from "react-intersection-observer";
+import QRCodeGlow from "./StyleQrCode";
 
 export default function HeroQRSection() {
   //   const [offsetY, setOffsetY] = useState(0);
@@ -33,7 +34,7 @@ export default function HeroQRSection() {
         transition: "background-position 0.3s ease",
       }}
     >
-      <QRCodeTilt src="/images/qr.png" />
+      <QRCodeGlow src="/images/qr.png" />
       {/* sticky top-20 z-10 text-4xl md:text-9xl font-extrabold tracking-tight
       transition-transform duration-1000 ease-in-out will-change-transform
       mx-auto text-center w-fit $

@@ -54,7 +54,7 @@ export default function QRCodeGlow({ src }: { src: string }) {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onMouseEnter={handleMouseEnter}
-        className="relative w-80 h-80 rounded-xl bg-gray-800/80  p-4 transition-transform duration-200 ease-out"
+        className="relative w-80 h-80 rounded-xl bg-[#424141]  p-4 transition-transform duration-200 ease-out"
       >
         {/* QR Image */}
         <Image
@@ -62,7 +62,7 @@ export default function QRCodeGlow({ src }: { src: string }) {
           width={100}
           height={100}
           alt="QR Code"
-          className="relative z-10 w-full h-full  bg-cover rounded-xl bg-white"
+          className="relative z-10 w-full h-full bg-accent-foreground  bg-cover rounded-xl "
         />
 
         {/* Glow on top of QR */}
