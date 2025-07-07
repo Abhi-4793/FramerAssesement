@@ -43,17 +43,17 @@ export default function HeroQRSection() {
       <h1
         ref={ref}
         className={clsx(
-          "absolute z-0 text-4xl md:text-8xl font-extrabold tracking-tight text-center whitespace-nowrap transition-all duration-1000 ease-[cubic-bezier(0.4,0,0.2,1)]",
+          "absolute z-0 text-4xl md:text-9xl font-semibold tracking-tight text-center whitespace-nowrap transition-all duration-1000 ease-[cubic-bezier(0.4,0,0.2,1)]",
           {
-            "translate-x-[20vw] opacity-100": inView,
-            "-translate-x-[40vw] opacity-60": !inView,
+            "-translate-x-[20vw] opacity-60 ": inView,
+            "translate-x-[20vw] opacity-100": !inView,
           }
         )}
         style={{
           willChange: "transform, opacity, left",
         }}
       >
-        <span className="inline">Trade </span>
+        <span className="inline ">Trade </span>
         <span className="inline text-white/60">Anytime</span>
         <span className="inline">, </span>
         <span className="inline bg-[#a35ca2] bg-clip-text text-transparent">

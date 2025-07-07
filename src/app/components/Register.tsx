@@ -28,27 +28,26 @@ export default function VerticalProgress() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
+      const sectionHeight = rect.height;
       const windowHeight = window.innerHeight;
 
-      const start = windowHeight;
-      const end = rect.height + windowHeight;
+      const scrollY = window.scrollY + windowHeight;
+      const offsetTop = section.offsetTop;
 
-      const scrollY = start - rect.top;
-      const rawProgress = scrollY / end;
+      const progressRaw = (scrollY - offsetTop) / sectionHeight;
+      const clamped = Math.min(Math.max(progressRaw, 0), 1);
 
-      const clampedProgress = Math.min(Math.max(rawProgress, 0), 1);
-
-      setProgress(clampedProgress);
+      setProgress(clamped);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run initially
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -106,8 +105,11 @@ export default function VerticalProgress() {
 
           <div
             ref={progressRef}
-            style={{ height: `${progress * 100}%` }}
-            className="absolute bottom-0 origin-top w-1 bg-white transition-[height] duration-500 ease-in-out"
+            style={{
+              height: `${progress * 100}%`,
+              transition: "height 0.1s linear",
+            }}
+            className="absolute bottom-0 origin-top w-1 bg-white"
           />
         </div>
         {steps.map((step, index) => (
